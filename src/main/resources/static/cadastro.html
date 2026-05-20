@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cadastrar Cliente</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#050816;
+    background-image:
+    radial-gradient(circle at top left, rgba(37,99,235,0.15), transparent 25%),
+    radial-gradient(circle at bottom right, rgba(59,130,246,0.10), transparent 25%);
+    color:white;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    background:#0f172a;
+    border:1px solid #1e293b;
+    border-radius:24px;
+    padding:35px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.45);
+}
+
+h1{
+    font-size:38px;
+    margin-bottom:10px;
+    color:#60a5fa;
+}
+
+.subtitulo{
+    color:#94a3b8;
+    margin-bottom:30px;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#020617;
+    border:1px solid #334155;
+    color:white;
+    margin-bottom:16px;
+    font-size:15px;
+}
+
+input:focus,
+textarea:focus{
+    outline:none;
+    border-color:#2563eb;
+    box-shadow:0 0 10px rgba(37,99,235,0.3);
+}
+
+textarea{
+    min-height:120px;
+    resize:none;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+.voltar{
+    display:block;
+    margin-top:20px;
+    text-align:center;
+    text-decoration:none;
+    color:#60a5fa;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Cadastrar Cliente</h1>
+
+    <p class="subtitulo">
+        Adicione novos clientes ao sistema
+    </p>
+
+    <input
+        type="text"
+        id="nome"
+        placeholder="Nome"
+        autocomplete="off"
+    >
+
+    <input
+        type="text"
+        id="nascimento"
+        placeholder="Data de nascimento (dd/mm/aaaa)"
+        autocomplete="off"
+    >
+
+    <input
+        type="text"
+        id="cpf"
+        placeholder="CPF"
+        autocomplete="off"
+    >
+
+    <input
+        type="text"
+        id="telefone"
+        placeholder="Telefone"
+        autocomplete="off"
+    >
+
+    <input
+        type="email"
+        id="email"
+        placeholder="E-mail"
+        autocomplete="off"
+    >
+
+    <input
+        type="text"
+        id="cep"
+        placeholder="CEP"
+        autocomplete="off"
+    >
+
+    <input
+        type="text"
+        id="endereco"
+        placeholder="Endereço"
+        autocomplete="off"
+    >
+
+    <input
+        type="text"
+        id="numero"
+        placeholder="Número da casa"
+        autocomplete="off"
+    >
+
+    <input
+        type="text"
+        id="complemento"
+        placeholder="Complemento"
+        autocomplete="off"
+    >
+
+    <textarea
+        id="observacoes"
+        placeholder="Observações do cliente"
+        autocomplete="off"
+    ></textarea>
+
+    <button onclick="cadastrar()">
+        Cadastrar Cliente
+    </button>
+
+    <a class="voltar" href="index.html">
+        ← Voltar ao início
+    </a>
+
+</div>
+
+<script>
+
+const api = "http://localhost:8081/clientes";
+
+/* CPF */
+
+document.getElementById("cpf")
+.addEventListener("input", function(e){
+
+    let v = e.target.value
+    .replace(/\D/g,"")
+    .slice(0,11);
+
+    v = v.replace(/(\d{3})(\d)/,"$1.$2");
+    v = v.replace(/(\d{3})(\d)/,"$1.$2");
+    v = v.replace(/(\d{3})(\d{1,2})$/,"$1-$2");
+
+    e.target.value = v;
+
+});
+
+/* TELEFONE */
+
+document.getElementById("telefone")
+.addEventListener("input", function(e){
+
+    let v = e.target.value
+    .replace(/\D/g,"")
+    .slice(0,11);
+
+    v = v.replace(/^(\d{2})(\d)/g,"($1) $2");
+    v = v.replace(/(\d)(\d{4})$/,"$1-$2");
+
+    e.target.value = v;
+
+});
+
+/* CEP */
+
+document.getElementById("cep")
+.addEventListener("input", function(e){
+
+    let v = e.target.value
+    .replace(/\D/g,"")
+    .slice(0,8);
+
+    v = v.replace(/(\d{2})(\d)/,"$1.$2");
+    v = v.replace(/(\d{3})(\d)/,"$1-$2");
+
+    e.target.value = v;
+
+});
+
+/* DATA */
+
+document.getElementById("nascimento")
+.addEventListener("input", function(e){
+
+    let v = e.target.value
+    .replace(/\D/g,"")
+    .slice(0,8);
+
+    v = v.replace(/(\d{2})(\d)/,"$1/$2");
+    v = v.replace(/(\d{2})(\d)/,"$1/$2");
+
+    e.target.value = v;
+
+});
+
+/* BUSCAR CEP */
+
+document.getElementById("cep")
+.addEventListener("blur", function(){
+
+    let cep = this.value.replace(/\D/g,'');
+
+    if(cep.length !== 8){
+        return;
+    }
+
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+    .then(res => res.json())
+    .then(data => {
+
+        if(data.erro){
+            alert("CEP não encontrado!");
+            return;
+        }
+
+        document.getElementById("endereco").value =
+        `${data.logradouro}, ${data.bairro} - ${data.localidade}/${data.uf}`;
+
+    });
+
+});
+
+/* CADASTRAR */
+
+function cadastrar(){
+
+    const cliente = {
+
+        nome:
+        document.getElementById("nome").value,
+
+        nascimento:
+        document.getElementById("nascimento").value,
+
+        cpf:
+        document.getElementById("cpf").value,
+
+        telefone:
+        document.getElementById("telefone").value,
+
+        email:
+        document.getElementById("email").value,
+
+        cep:
+        document.getElementById("cep").value,
+
+        endereco:
+        document.getElementById("endereco").value,
+
+        numero:
+        document.getElementById("numero").value,
+
+        complemento:
+        document.getElementById("complemento").value,
+
+        observacoes:
+        document.getElementById("observacoes").value
+
+    };
+
+    if(
+        !cliente.nome ||
+        !cliente.cpf ||
+        !cliente.telefone
+    ){
+
+        alert("Preencha os campos obrigatórios!");
+
+        return;
+    }
+
+    if(cliente.cpf.replace(/\D/g,"").length !== 11){
+
+        alert("CPF deve conter 11 números!");
+
+        return;
+    }
+
+    if(cliente.cep &&
+       cliente.cep.replace(/\D/g,"").length !== 8){
+
+        alert("CEP deve conter 8 números!");
+
+        return;
+    }
+
+    fetch(api,{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify(cliente)
+
+    })
+
+    .then(() => {
+
+        alert("Cliente cadastrado com sucesso!");
+
+        document
+        .querySelectorAll("input, textarea")
+        .forEach(i => i.value = "");
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Smert</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:Arial, sans-serif;
+
+    background:#050816;
+
+    background-image:
+    radial-gradient(circle at top left,
+    rgba(37,99,235,0.15), transparent 25%),
+
+    radial-gradient(circle at bottom right,
+    rgba(59,130,246,0.10), transparent 25%);
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:white;
+}
+
+.container{
+
+    width:100%;
+    max-width:1200px;
+    padding:40px;
+}
+
+/* TOPO */
+
+.topo{
+
+    text-align:center;
+    margin-bottom:60px;
+}
+
+/* GATO */
+
+.gato{
+
+    width:185px;
+
+    display:block;
+
+    margin:0 auto -35px auto;
+
+    filter:
+    drop-shadow(0 0 20px rgba(59,130,246,0.4));
+
+    transition:0.3s;
+}
+
+.gato:hover{
+
+    transform:scale(1.02);
+}
+
+/* LOGO */
+
+.logo{
+
+    font-size:90px;
+
+    font-weight:bold;
+
+    color:#60a5fa;
+
+    letter-spacing:2px;
+
+    text-shadow:
+    0 0 20px rgba(96,165,250,0.25);
+}
+
+/* SUBTITULO */
+
+.subtitulo{
+
+    color:#94a3b8;
+
+    margin-top:10px;
+
+    font-size:18px;
+}
+
+/* CARDS */
+
+.cards{
+
+    display:flex;
+
+    gap:30px;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+}
+
+.card{
+
+    width:420px;
+
+    background:#0f172a;
+
+    border:1px solid #1e293b;
+
+    border-radius:24px;
+
+    padding:35px;
+
+    text-decoration:none;
+
+    color:white;
+
+    transition:0.4s;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.45);
+}
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    background:
+    rgba(37,99,235,0.12);
+
+    border-radius:50%;
+
+    top:-70px;
+
+    right:-70px;
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#3b82f6;
+
+    box-shadow:
+    0 15px 35px rgba(37,99,235,0.25);
+}
+
+/* ICONE */
+
+.icone{
+
+    font-size:55px;
+
+    margin-bottom:20px;
+}
+
+.card h2{
+
+    font-size:40px;
+
+    margin-bottom:15px;
+}
+
+/* LINHA */
+
+.linha{
+
+    width:70px;
+
+    height:4px;
+
+    background:#3b82f6;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
+}
+
+/* TEXTO */
+
+.card p{
+
+    color:#94a3b8;
+
+    line-height:1.7;
+
+    font-size:17px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="topo">
+
+        <!-- GATO -->
+        <img src="gato.png" class="gato">
+
+        <!-- LOGO -->
+        <div class="logo">
+            Smert
+        </div>
+
+        <!-- FRASE -->
+        <div class="subtitulo">
+            Inteligência em gerenciar, simplicidade em usar.
+        </div>
+
+    </div>
+
+    <div class="cards">
+
+        <!-- CARD CADASTRO -->
+
+        <a href="cadastro.html" class="card">
+
+            <div class="icone">👤</div>
+
+            <h2>Cadastrar</h2>
+
+            <div class="linha"></div>
+
+            <p>
+                Adicione novos clientes ao sistema
+                de maneira rápida, moderna e organizada.
+            </p>
+
+        </a>
+
+        <!-- CARD CLIENTES -->
+
+        <a href="clientes.html" class="card">
+
+            <div class="icone">🔎</div>
+
+            <h2>Clientes</h2>
+
+            <div class="linha"></div>
+
+            <p>
+                Visualize, pesquise e gerencie todos
+                os clientes cadastrados.
+            </p>
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

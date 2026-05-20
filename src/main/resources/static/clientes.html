@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Clientes Cadastrados</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background:#050816;
+    background-image:
+    radial-gradient(circle at top left, rgba(37,99,235,0.15), transparent 25%),
+    radial-gradient(circle at bottom right, rgba(59,130,246,0.10), transparent 25%);
+    color:white;
+    padding:40px;
+    min-height:100vh;
+}
+
+.container{
+    max-width:950px;
+    margin:auto;
+}
+
+.topo{
+    margin-bottom:30px;
+}
+
+.topo h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.topo p{
+    color:#94a3b8;
+}
+
+.card{
+    background:#0f172a;
+    border:1px solid #1f2937;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+    margin-bottom:20px;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#020617;
+    border:1px solid #334155;
+    color:white;
+    margin-bottom:14px;
+    font-size:15px;
+}
+
+textarea{
+    min-height:120px;
+    resize:none;
+}
+
+input:focus,
+textarea:focus{
+    outline:none;
+    border-color:#2563eb;
+    box-shadow:0 0 10px rgba(37,99,235,0.3);
+}
+
+#lista{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.cliente{
+    background:#0b1220;
+    border:1px solid #1e293b;
+    border-radius:14px;
+    padding:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:0.3s;
+}
+
+.cliente:hover{
+    transform:translateY(-2px);
+    border-color:#2563eb;
+}
+
+.info{
+    line-height:1.8;
+}
+
+.nome-cliente{
+    font-size:20px;
+    color:#60a5fa;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.nome-cliente:hover{
+    color:#93c5fd;
+}
+
+.info span{
+    color:#94a3b8;
+    font-size:14px;
+}
+
+.acoes{
+    display:flex;
+    gap:10px;
+}
+
+.btn-edit{
+    background:#2563eb;
+    border:none;
+    color:white;
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.btn-delete{
+    background:#dc2626;
+    border:none;
+    color:white;
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.btn-edit:hover{
+    background:#1d4ed8;
+}
+
+.btn-delete:hover{
+    background:#b91c1c;
+}
+
+.btn-salvar{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn-cancelar{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#334155;
+    color:white;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.voltar{
+    display:inline-block;
+    margin-top:25px;
+    text-decoration:none;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    padding:12px 18px;
+    border-radius:12px;
+}
+
+#contador{
+    margin-top:10px;
+    color:#60a5fa;
+}
+
+.sem-clientes{
+    text-align:center;
+    color:#94a3b8;
+    padding:20px;
+}
+
+#formEditar{
+    display:none;
+}
+
+#detalhes{
+    display:none;
+}
+
+.detalhes-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+    margin-top:20px;
+}
+
+.detalhe-item{
+    background:#020617;
+    border:1px solid #1e293b;
+    border-radius:12px;
+    padding:14px;
+}
+
+.detalhe-item strong{
+    display:block;
+    color:#60a5fa;
+    margin-bottom:6px;
+}
+
+.detalhe-item span{
+    color:#e5e7eb;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="topo">
+
+        <h1>Clientes Cadastrados</h1>
+
+        <p>
+            Clique no nome do cliente para visualizar todas as informações
+        </p>
+
+        <p id="contador"></p>
+
+    </div>
+
+    <!-- DETALHES -->
+
+    <div class="card" id="detalhes">
+
+        <h2 style="margin-bottom:10px;">
+            Informações do Cliente
+        </h2>
+
+        <div
+            class="detalhes-grid"
+            id="detalhesConteudo"
+        ></div>
+
+        <button
+            class="btn-cancelar"
+            onclick="fecharDetalhes()"
+        >
+            Fechar
+        </button>
+
+    </div>
+
+    <!-- EDITAR -->
+
+    <div class="card" id="formEditar">
+
+        <h2 style="margin-bottom:15px;">
+            Editar Cliente
+        </h2>
+
+        <input type="hidden" id="editId">
+
+        <input type="text" id="editNome" placeholder="Nome">
+
+        <input type="text" id="editNascimento" placeholder="Data de nascimento">
+
+        <input type="text" id="editCpf" placeholder="CPF">
+
+        <input type="text" id="editTelefone" placeholder="Telefone">
+
+        <input type="email" id="editEmail" placeholder="Email">
+
+        <input type="text" id="editCep" placeholder="CEP">
+
+        <input type="text" id="editEndereco" placeholder="Endereço">
+
+        <input type="text" id="editNumero" placeholder="Número">
+
+        <input type="text" id="editComplemento" placeholder="Complemento">
+
+        <textarea
+            id="editObservacoes"
+            placeholder="Observações"
+        ></textarea>
+
+        <button
+            class="btn-salvar"
+            onclick="salvarEdicao()"
+        >
+            Salvar Alterações
+        </button>
+
+        <button
+            class="btn-cancelar"
+            onclick="cancelarEdicao()"
+        >
+            Cancelar
+        </button>
+
+    </div>
+
+    <!-- LISTA -->
+
+    <div class="card">
+
+        <input
+            type="text"
+            id="busca"
+            placeholder="Pesquisar cliente..."
+        >
+
+        <div id="lista"></div>
+
+    </div>
+
+    <a class="voltar" href="index.html">
+        ← Voltar ao início
+    </a>
+
+</div>
+
+<script>
+
+const api = "http://localhost:8081/clientes";
+
+let clientesOriginais = [];
+
+function carregarClientes(){
+
+    fetch(api)
+
+    .then(res => res.json())
+
+    .then(data => {
+
+        clientesOriginais = data;
+
+        mostrarClientes(data);
+
+    });
+
+}
+
+function mostrarClientes(clientes){
+
+    let lista = document.getElementById("lista");
+
+    lista.innerHTML = "";
+
+    document.getElementById("contador").innerText =
+        "Total de clientes: " + clientes.length;
+
+    if(clientes.length === 0){
+
+        lista.innerHTML = `
+            <div class="sem-clientes">
+                Nenhum cliente encontrado
+            </div>
+        `;
+
+        return;
+    }
+
+    clientes.forEach(c => {
+
+        lista.innerHTML += `
+
+            <div class="cliente">
+
+                <div class="info">
+
+                    <strong
+                        class="nome-cliente"
+                        onclick="abrirDetalhes(${c.id})"
+                    >
+                        ${c.nome}
+                    </strong><br>
+
+                    <span>${c.email || "Sem email"}</span><br>
+
+                    <span>${c.telefone}</span>
+
+                </div>
+
+                <div class="acoes">
+
+                    <button
+                        class="btn-edit"
+                        onclick="editarCliente(${c.id})"
+                    >
+                        Editar
+                    </button>
+
+                    <button
+                        class="btn-delete"
+                        onclick="excluir(${c.id})"
+                    >
+                        Excluir
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+/* ABRIR DETALHES */
+
+function abrirDetalhes(id){
+
+    const c = clientesOriginais.find(cliente => cliente.id === id);
+
+    if(!c){
+
+        alert("Cliente não encontrado.");
+
+        return;
+    }
+
+    document.getElementById("detalhesConteudo").innerHTML = `
+
+        <div class="detalhe-item">
+            <strong>Nome</strong>
+            <span>${c.nome || "Não informado"}</span>
+        </div>
+
+        <div class="detalhe-item">
+            <strong>Data de nascimento</strong>
+            <span>${c.nascimento || "Não informado"}</span>
+        </div>
+
+        <div class="detalhe-item">
+            <strong>CPF</strong>
+            <span>${c.cpf || "Não informado"}</span>
+        </div>
+
+        <div class="detalhe-item">
+            <strong>Telefone</strong>
+            <span>${c.telefone || "Não informado"}</span>
+        </div>
+
+        <div class="detalhe-item">
+            <strong>Email</strong>
+            <span>${c.email || "Não informado"}</span>
+        </div>
+
+        <div class="detalhe-item">
+            <strong>CEP</strong>
+            <span>${c.cep || "Não informado"}</span>
+        </div>
+
+        <div class="detalhe-item">
+            <strong>Endereço</strong>
+            <span>${c.endereco || "Não informado"}</span>
+        </div>
+
+        <div class="detalhe-item">
+            <strong>Número</strong>
+            <span>${c.numero || "Não informado"}</span>
+        </div>
+
+        <div class="detalhe-item">
+            <strong>Complemento</strong>
+            <span>${c.complemento || "Não informado"}</span>
+        </div>
+
+        <div class="detalhe-item">
+            <strong>Observações</strong>
+            <span>${c.observacoes || "Não informado"}</span>
+        </div>
+
+    `;
+
+    document.getElementById("detalhes").style.display = "block";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+function fecharDetalhes(){
+
+    document.getElementById("detalhes").style.display = "none";
+
+}
+
+/* EDITAR */
+
+function editarCliente(id){
+
+    const cliente = clientesOriginais.find(c => c.id === id);
+
+    if(!cliente){
+
+        alert("Cliente não encontrado.");
+
+        return;
+    }
+
+    document.getElementById("editId").value =
+    cliente.id;
+
+    document.getElementById("editNome").value =
+    cliente.nome || "";
+
+    document.getElementById("editNascimento").value =
+    cliente.nascimento || "";
+
+    document.getElementById("editCpf").value =
+    cliente.cpf || "";
+
+    document.getElementById("editTelefone").value =
+    cliente.telefone || "";
+
+    document.getElementById("editEmail").value =
+    cliente.email || "";
+
+    document.getElementById("editCep").value =
+    cliente.cep || "";
+
+    document.getElementById("editEndereco").value =
+    cliente.endereco || "";
+
+    document.getElementById("editNumero").value =
+    cliente.numero || "";
+
+    document.getElementById("editComplemento").value =
+    cliente.complemento || "";
+
+    document.getElementById("editObservacoes").value =
+    cliente.observacoes || "";
+
+    document.getElementById("formEditar").style.display =
+    "block";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+function salvarEdicao(){
+
+    const id =
+    document.getElementById("editId").value;
+
+    const clienteAtualizado = {
+
+        nome:
+        document.getElementById("editNome").value,
+
+        nascimento:
+        document.getElementById("editNascimento").value,
+
+        cpf:
+        document.getElementById("editCpf").value,
+
+        telefone:
+        document.getElementById("editTelefone").value,
+
+        email:
+        document.getElementById("editEmail").value,
+
+        cep:
+        document.getElementById("editCep").value,
+
+        endereco:
+        document.getElementById("editEndereco").value,
+
+        numero:
+        document.getElementById("editNumero").value,
+
+        complemento:
+        document.getElementById("editComplemento").value,
+
+        observacoes:
+        document.getElementById("editObservacoes").value
+
+    };
+
+    fetch(`${api}/${id}`, {
+
+        method:"PUT",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body: JSON.stringify(clienteAtualizado)
+
+    })
+
+    .then(() => {
+
+        alert("Cliente atualizado com sucesso!");
+
+        cancelarEdicao();
+
+        carregarClientes();
+
+    });
+
+}
+
+function cancelarEdicao(){
+
+    document.getElementById("formEditar").style.display =
+    "none";
+
+}
+
+/* EXCLUIR */
+
+function excluir(id){
+
+    if(confirm("Deseja excluir este cliente?")){
+
+        fetch(`${api}/${id}`, {
+
+            method:"DELETE"
+
+        })
+
+        .then(() => {
+
+            carregarClientes();
+
+        });
+
+    }
+
+}
+
+/* BUSCAR */
+
+document.getElementById("busca")
+.addEventListener("input", function(){
+
+    let termo =
+    this.value.toLowerCase();
+
+    let filtrados =
+    clientesOriginais.filter(c =>
+
+        c.nome.toLowerCase().includes(termo)
+
+    );
+
+    mostrarClientes(filtrados);
+
+});
+
+carregarClientes();
+
+</script>
+
+</body>
+</html>
