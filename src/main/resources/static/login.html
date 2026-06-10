@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login - Smert</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#050816;
+    background-image:
+    radial-gradient(circle at top left, rgba(37,99,235,0.15), transparent 25%),
+    radial-gradient(circle at bottom right, rgba(59,130,246,0.10), transparent 25%);
+    color:white;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.container{
+    width:100%;
+    max-width:420px;
+    background:#0f172a;
+    border:1px solid #1e293b;
+    border-radius:24px;
+    padding:35px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.45);
+    text-align:center;
+}
+
+.logo{
+    width:120px;
+    display:block;
+    margin:0 auto -20px auto;
+}
+
+h1{
+    font-size:58px;
+    color:#60a5fa;
+    margin-bottom:10px;
+}
+
+p{
+    color:#94a3b8;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#020617;
+    border:1px solid #334155;
+    color:white;
+    margin-bottom:16px;
+    font-size:15px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.erro{
+    color:#f87171;
+    margin-top:15px;
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <img src="gato.png" class="logo">
+
+    <h1>Smert</h1>
+
+    <p>Acesse sua conta</p>
+
+    <input type="text" id="usuario" placeholder="Usuário" autocomplete="off">
+
+    <input type="password" id="senha" placeholder="Senha" autocomplete="off">
+
+    <button onclick="entrar()">Entrar</button>
+
+    <div class="erro" id="erro">
+        Usuário ou senha inválidos.
+    </div>
+
+</div>
+
+<script>
+function entrar(){
+
+    const usuario = document.getElementById("usuario").value;
+    const senha = document.getElementById("senha").value;
+
+    if(usuario === "admin" && senha === "123"){
+
+        localStorage.setItem("logado","true");
+        window.location.href = "index.html";
+
+    }else{
+
+        document.getElementById("erro").style.display = "block";
+
+    }
+}
+</script>
+
+</body>
+</html>

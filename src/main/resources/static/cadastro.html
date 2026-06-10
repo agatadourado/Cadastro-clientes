@@ -99,6 +99,39 @@ button:hover{
     color:#60a5fa;
 }
 
+.notificacao{
+    position:fixed;
+    top:20px;
+    right:20px;
+    color:white;
+    padding:15px 25px;
+    border-radius:12px;
+    font-weight:bold;
+    box-shadow:0 10px 25px rgba(0,0,0,.3);
+    z-index:9999;
+    animation:entrar .4s ease;
+}
+
+.notificacao.sucesso{
+    background:#2563eb;
+}
+
+.notificacao.erro{
+    background:#dc2626;
+}
+
+@keyframes entrar{
+    from{
+        opacity:0;
+        transform:translateX(100%);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
 </style>
 </head>
 
@@ -195,6 +228,29 @@ button:hover{
 
 const api = "http://localhost:8081/clientes";
 
+function mostrarNotificacao(texto, tipo = "sucesso"){
+
+    const notificacao =
+    document.createElement("div");
+
+    notificacao.className =
+    `notificacao ${tipo}`;
+
+    notificacao.innerText =
+    texto;
+
+    document.body.appendChild(
+        notificacao
+    );
+
+    setTimeout(() => {
+
+        notificacao.remove();
+
+    },3000);
+
+}
+
 /* CPF */
 
 document.getElementById("cpf")
@@ -265,7 +321,8 @@ document.getElementById("nascimento")
 document.getElementById("cep")
 .addEventListener("blur", function(){
 
-    let cep = this.value.replace(/\D/g,'');
+    let cep =
+    this.value.replace(/\D/g,'');
 
     if(cep.length !== 8){
         return;
@@ -276,7 +333,12 @@ document.getElementById("cep")
     .then(data => {
 
         if(data.erro){
-            alert("CEP não encontrado!");
+
+            mostrarNotificacao(
+                "CEP não encontrado!",
+                "erro"
+            );
+
             return;
         }
 
@@ -331,14 +393,20 @@ function cadastrar(){
         !cliente.telefone
     ){
 
-        alert("Preencha os campos obrigatórios!");
+        mostrarNotificacao(
+            "Preencha os campos obrigatórios!",
+            "erro"
+        );
 
         return;
     }
 
     if(cliente.cpf.replace(/\D/g,"").length !== 11){
 
-        alert("CPF deve conter 11 números!");
+        mostrarNotificacao(
+            "CPF deve conter 11 números!",
+            "erro"
+        );
 
         return;
     }
@@ -346,7 +414,10 @@ function cadastrar(){
     if(cliente.cep &&
        cliente.cep.replace(/\D/g,"").length !== 8){
 
-        alert("CEP deve conter 8 números!");
+        mostrarNotificacao(
+            "CEP deve conter 8 números!",
+            "erro"
+        );
 
         return;
     }
@@ -365,7 +436,9 @@ function cadastrar(){
 
     .then(() => {
 
-        alert("Cliente cadastrado com sucesso!");
+        mostrarNotificacao(
+            "Cliente cadastrado com sucesso!"
+        );
 
         document
         .querySelectorAll("input, textarea")

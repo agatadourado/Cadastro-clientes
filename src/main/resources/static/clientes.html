@@ -225,6 +225,39 @@ textarea:focus{
     color:#e5e7eb;
 }
 
+.notificacao{
+    position:fixed;
+    top:20px;
+    right:20px;
+    color:white;
+    padding:15px 25px;
+    border-radius:12px;
+    font-weight:bold;
+    box-shadow:0 10px 25px rgba(0,0,0,.3);
+    z-index:9999;
+    animation:entrar .4s ease;
+}
+
+.notificacao.sucesso{
+    background:#2563eb;
+}
+
+.notificacao.erro{
+    background:#dc2626;
+}
+
+@keyframes entrar{
+    from{
+        opacity:0;
+        transform:translateX(100%);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
 </style>
 </head>
 
@@ -243,8 +276,6 @@ textarea:focus{
         <p id="contador"></p>
 
     </div>
-
-    <!-- DETALHES -->
 
     <div class="card" id="detalhes">
 
@@ -265,8 +296,6 @@ textarea:focus{
         </button>
 
     </div>
-
-    <!-- EDITAR -->
 
     <div class="card" id="formEditar">
 
@@ -315,8 +344,6 @@ textarea:focus{
 
     </div>
 
-    <!-- LISTA -->
-
     <div class="card">
 
         <input
@@ -341,6 +368,29 @@ const api = "http://localhost:8081/clientes";
 
 let clientesOriginais = [];
 
+function mostrarNotificacao(texto, tipo = "sucesso"){
+
+    const notificacao =
+    document.createElement("div");
+
+    notificacao.className =
+    `notificacao ${tipo}`;
+
+    notificacao.innerText =
+    texto;
+
+    document.body.appendChild(
+        notificacao
+    );
+
+    setTimeout(() => {
+
+        notificacao.remove();
+
+    },3000);
+
+}
+
 function carregarClientes(){
 
     fetch(api)
@@ -359,12 +409,13 @@ function carregarClientes(){
 
 function mostrarClientes(clientes){
 
-    let lista = document.getElementById("lista");
+    let lista =
+    document.getElementById("lista");
 
     lista.innerHTML = "";
 
     document.getElementById("contador").innerText =
-        "Total de clientes: " + clientes.length;
+    "Total de clientes: " + clientes.length;
 
     if(clientes.length === 0){
 
@@ -424,15 +475,17 @@ function mostrarClientes(clientes){
 
 }
 
-/* ABRIR DETALHES */
-
 function abrirDetalhes(id){
 
-    const c = clientesOriginais.find(cliente => cliente.id === id);
+    const c =
+    clientesOriginais.find(cliente => cliente.id === id);
 
     if(!c){
 
-        alert("Cliente não encontrado.");
+        mostrarNotificacao(
+            "Cliente não encontrado.",
+            "erro"
+        );
 
         return;
     }
@@ -491,7 +544,8 @@ function abrirDetalhes(id){
 
     `;
 
-    document.getElementById("detalhes").style.display = "block";
+    document.getElementById("detalhes").style.display =
+    "block";
 
     window.scrollTo({
         top:0,
@@ -502,19 +556,22 @@ function abrirDetalhes(id){
 
 function fecharDetalhes(){
 
-    document.getElementById("detalhes").style.display = "none";
+    document.getElementById("detalhes").style.display =
+    "none";
 
 }
 
-/* EDITAR */
-
 function editarCliente(id){
 
-    const cliente = clientesOriginais.find(c => c.id === id);
+    const cliente =
+    clientesOriginais.find(c => c.id === id);
 
     if(!cliente){
 
-        alert("Cliente não encontrado.");
+        mostrarNotificacao(
+            "Cliente não encontrado.",
+            "erro"
+        );
 
         return;
     }
@@ -615,7 +672,9 @@ function salvarEdicao(){
 
     .then(() => {
 
-        alert("Cliente atualizado com sucesso!");
+        mostrarNotificacao(
+            "Cliente atualizado com sucesso!"
+        );
 
         cancelarEdicao();
 
@@ -632,8 +691,6 @@ function cancelarEdicao(){
 
 }
 
-/* EXCLUIR */
-
 function excluir(id){
 
     if(confirm("Deseja excluir este cliente?")){
@@ -646,6 +703,10 @@ function excluir(id){
 
         .then(() => {
 
+            mostrarNotificacao(
+                "Cliente excluído com sucesso!"
+            );
+
             carregarClientes();
 
         });
@@ -653,8 +714,6 @@ function excluir(id){
     }
 
 }
-
-/* BUSCAR */
 
 document.getElementById("busca")
 .addEventListener("input", function(){

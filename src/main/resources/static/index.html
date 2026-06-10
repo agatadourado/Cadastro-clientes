@@ -7,7 +7,6 @@
 <title>Smert</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
@@ -15,201 +14,228 @@
 }
 
 body{
-
     font-family:Arial, sans-serif;
-
     background:#050816;
-
     background-image:
-    radial-gradient(circle at top left,
-    rgba(37,99,235,0.15), transparent 25%),
-
-    radial-gradient(circle at bottom right,
-    rgba(59,130,246,0.10), transparent 25%);
-
+    radial-gradient(circle at top left, rgba(37,99,235,0.15), transparent 25%),
+    radial-gradient(circle at bottom right, rgba(59,130,246,0.10), transparent 25%);
     min-height:100vh;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     color:white;
+    padding:30px;
 }
 
 .container{
-
     width:100%;
     max-width:1200px;
-    padding:40px;
 }
 
-/* TOPO */
+.login-box{
+    width:100%;
+    max-width:430px;
+    margin:auto;
+    background:#0f172a;
+    border:1px solid #1e293b;
+    border-radius:24px;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.45);
+}
+
+.login-box img{
+    width:130px;
+    margin-bottom:-25px;
+}
+
+.logo{
+    font-size:62px;
+    font-weight:bold;
+    color:#60a5fa;
+    margin-bottom:8px;
+}
+
+.subtitulo{
+    color:#94a3b8;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#020617;
+    border:1px solid #334155;
+    color:white;
+    margin-bottom:15px;
+    font-size:15px;
+}
+
+input:focus{
+    outline:none;
+    border-color:#2563eb;
+}
+
+.senha-container{
+    position:relative;
+    margin-bottom:15px;
+}
+
+.senha-container input{
+    margin-bottom:0;
+    padding-right:55px;
+}
+
+.btn-olho{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    background:none;
+    border:none;
+    color:#94a3b8;
+    cursor:pointer;
+    width:auto;
+    padding:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.btn-olho:hover{
+    color:#60a5fa;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:15px;
+}
+
+button:hover{
+    opacity:.95;
+}
+
+.link{
+    margin-top:18px;
+    color:#60a5fa;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.erro{
+    color:#f87171;
+    margin-top:15px;
+    display:none;
+}
+
+.sucesso{
+    color:#4ade80;
+    margin-top:15px;
+    display:none;
+}
+
+.home{
+    display:none;
+}
 
 .topo{
-
     text-align:center;
     margin-bottom:60px;
 }
 
-/* GATO */
-
 .gato{
-
     width:185px;
-
     display:block;
-
     margin:0 auto -35px auto;
-
-    filter:
-    drop-shadow(0 0 20px rgba(59,130,246,0.4));
-
-    transition:0.3s;
+    filter:drop-shadow(0 0 20px rgba(59,130,246,0.4));
 }
 
-.gato:hover{
-
-    transform:scale(1.02);
-}
-
-/* LOGO */
-
-.logo{
-
+.home .logo{
     font-size:90px;
-
-    font-weight:bold;
-
-    color:#60a5fa;
-
     letter-spacing:2px;
-
-    text-shadow:
-    0 0 20px rgba(96,165,250,0.25);
+    text-shadow:0 0 20px rgba(96,165,250,0.25);
 }
-
-/* SUBTITULO */
-
-.subtitulo{
-
-    color:#94a3b8;
-
-    margin-top:10px;
-
-    font-size:18px;
-}
-
-/* CARDS */
 
 .cards{
-
     display:flex;
-
     gap:30px;
-
     justify-content:center;
-
     flex-wrap:wrap;
 }
 
 .card{
-
     width:420px;
-
     background:#0f172a;
-
     border:1px solid #1e293b;
-
     border-radius:24px;
-
     padding:35px;
-
     text-decoration:none;
-
     color:white;
-
     transition:0.4s;
-
     position:relative;
-
     overflow:hidden;
-
-    box-shadow:
-    0 10px 30px rgba(0,0,0,0.45);
+    box-shadow:0 10px 30px rgba(0,0,0,0.45);
 }
 
 .card::before{
-
     content:"";
-
     position:absolute;
-
     width:180px;
-
     height:180px;
-
-    background:
-    rgba(37,99,235,0.12);
-
+    background:rgba(37,99,235,0.12);
     border-radius:50%;
-
     top:-70px;
-
     right:-70px;
 }
 
 .card:hover{
-
     transform:translateY(-8px);
-
     border-color:#3b82f6;
-
-    box-shadow:
-    0 15px 35px rgba(37,99,235,0.25);
 }
 
-/* ICONE */
-
 .icone{
-
     font-size:55px;
-
     margin-bottom:20px;
 }
 
 .card h2{
-
     font-size:40px;
-
     margin-bottom:15px;
 }
 
-/* LINHA */
-
 .linha{
-
     width:70px;
-
     height:4px;
-
     background:#3b82f6;
-
     border-radius:10px;
-
     margin-bottom:20px;
 }
 
-/* TEXTO */
-
 .card p{
-
     color:#94a3b8;
-
     line-height:1.7;
-
     font-size:17px;
 }
 
+.sair-link{
+    text-align:center;
+    margin-top:35px;
+    color:#94a3b8;
+    cursor:pointer;
+}
+
+.sair-link:hover{
+    color:#60a5fa;
+}
 </style>
 </head>
 
@@ -217,62 +243,316 @@ body{
 
 <div class="container">
 
-    <div class="topo">
+    <div class="login-box" id="telaLogin">
 
-        <!-- GATO -->
-        <img src="gato.png" class="gato">
+        <img src="gato.png" alt="Smert">
 
-        <!-- LOGO -->
-        <div class="logo">
-            Smert
+        <div class="logo">Smert</div>
+
+        <p class="subtitulo" id="tituloLogin">
+            Acesse sua conta
+        </p>
+
+        <input
+            type="text"
+            id="nomeUsuario"
+            placeholder="Nome"
+            autocomplete="off"
+            style="display:none;"
+        >
+
+        <input
+            type="email"
+            id="email"
+            placeholder="E-mail"
+            autocomplete="off"
+        >
+
+        <div class="senha-container">
+
+            <input
+                type="password"
+                id="senha"
+                placeholder="Senha"
+                autocomplete="off"
+            >
+
+            <button
+                type="button"
+                class="btn-olho"
+                onclick="mostrarSenha()"
+                title="Mostrar ou ocultar senha"
+            >
+                <svg id="iconeOlho" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM8 12.5A4.5 4.5 0 1 1 8 3.5a4.5 4.5 0 0 1 0 9z"/>
+                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5a2.5 2.5 0 0 0 0-5z"/>
+                </svg>
+            </button>
+
         </div>
 
-        <!-- FRASE -->
-        <div class="subtitulo">
-            Inteligência em gerenciar, simplicidade em usar.
+        <button onclick="entrar()" id="btnEntrar">
+            Entrar
+        </button>
+
+        <button onclick="cadastrarUsuario()" id="btnCadastrar" style="display:none;">
+            Criar Conta
+        </button>
+
+        <div class="link" onclick="mostrarCadastro()" id="linkCadastro">
+            Criar uma conta
+        </div>
+
+        <div class="link" onclick="mostrarLogin()" id="linkLogin" style="display:none;">
+            Já tenho uma conta
+        </div>
+
+        <div class="erro" id="erro">
+            Dados inválidos.
+        </div>
+
+        <div class="sucesso" id="sucesso">
+            Conta criada com sucesso!
         </div>
 
     </div>
 
-    <div class="cards">
+    <div class="home" id="telaHome">
 
-        <!-- CARD CADASTRO -->
+        <div class="topo">
 
-        <a href="cadastro.html" class="card">
+            <img src="gato.png" class="gato" alt="Logo Smert">
 
-            <div class="icone">👤</div>
+            <div class="logo">
+                Smert
+            </div>
 
-            <h2>Cadastrar</h2>
+            <div class="subtitulo">
+                Inteligência em gerenciar, simplicidade em usar.
+            </div>
 
-            <div class="linha"></div>
+        </div>
 
-            <p>
-                Adicione novos clientes ao sistema
-                de maneira rápida, moderna e organizada.
-            </p>
+        <div class="cards">
 
-        </a>
+            <a href="cadastro.html" class="card">
 
-        <!-- CARD CLIENTES -->
+                <div class="icone">👤</div>
 
-        <a href="clientes.html" class="card">
+                <h2>Cadastrar</h2>
 
-            <div class="icone">🔎</div>
+                <div class="linha"></div>
 
-            <h2>Clientes</h2>
+                <p>
+                    Adicione novos clientes ao sistema
+                    de maneira rápida, moderna e organizada.
+                </p>
 
-            <div class="linha"></div>
+            </a>
 
-            <p>
-                Visualize, pesquise e gerencie todos
-                os clientes cadastrados.
-            </p>
+            <a href="clientes.html" class="card">
 
-        </a>
+                <div class="icone">🔎</div>
+
+                <h2>Clientes</h2>
+
+                <div class="linha"></div>
+
+                <p>
+                    Visualize, pesquise e gerencie todos
+                    os clientes cadastrados.
+                </p>
+
+            </a>
+
+        </div>
+
+        <div class="sair-link" onclick="logout()">
+            Sair da conta
+        </div>
 
     </div>
 
 </div>
+
+<script>
+
+function mostrarCadastro(){
+
+    document.getElementById("nomeUsuario").style.display = "block";
+    document.getElementById("btnEntrar").style.display = "none";
+    document.getElementById("btnCadastrar").style.display = "block";
+    document.getElementById("linkCadastro").style.display = "none";
+    document.getElementById("linkLogin").style.display = "block";
+
+    document.getElementById("tituloLogin").innerText =
+    "Crie sua conta";
+
+    document.getElementById("erro").style.display = "none";
+    document.getElementById("sucesso").style.display = "none";
+}
+
+function mostrarLogin(){
+
+    document.getElementById("nomeUsuario").style.display = "none";
+    document.getElementById("btnEntrar").style.display = "block";
+    document.getElementById("btnCadastrar").style.display = "none";
+    document.getElementById("linkCadastro").style.display = "block";
+    document.getElementById("linkLogin").style.display = "none";
+
+    document.getElementById("tituloLogin").innerText =
+    "Acesse sua conta";
+
+    document.getElementById("erro").style.display = "none";
+    document.getElementById("sucesso").style.display = "none";
+}
+
+function cadastrarUsuario(){
+
+    const nome =
+    document.getElementById("nomeUsuario").value.trim();
+
+    const email =
+    document.getElementById("email").value.trim();
+
+    const senha =
+    document.getElementById("senha").value.trim();
+
+    if(!nome || !email || !senha){
+
+        mostrarErro("Preencha todos os campos.");
+
+        return;
+    }
+
+    let usuarios =
+    JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    const existe =
+    usuarios.some(u => u.email === email);
+
+    if(existe){
+
+        mostrarErro("Este e-mail já está cadastrado.");
+
+        return;
+    }
+
+    usuarios.push({
+        nome:nome,
+        email:email,
+        senha:senha
+    });
+
+    localStorage.setItem(
+        "usuarios",
+        JSON.stringify(usuarios)
+    );
+
+    document.getElementById("sucesso").style.display = "block";
+    document.getElementById("erro").style.display = "none";
+
+    document.getElementById("nomeUsuario").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("senha").value = "";
+
+    setTimeout(() => {
+        mostrarLogin();
+    }, 1000);
+}
+
+function entrar(){
+
+    const email =
+    document.getElementById("email").value.trim();
+
+    const senha =
+    document.getElementById("senha").value.trim();
+
+    let usuarios =
+    JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    const usuario =
+    usuarios.find(u => u.email === email && u.senha === senha);
+
+    if(usuario){
+
+        localStorage.setItem("logado","true");
+        localStorage.setItem("usuarioAtual", usuario.email);
+        localStorage.setItem("nomeUsuarioAtual", usuario.nome);
+
+        abrirHome();
+
+    }else{
+
+        mostrarErro("E-mail ou senha inválidos.");
+
+    }
+}
+
+function mostrarErro(mensagem){
+
+    document.getElementById("erro").innerText = mensagem;
+    document.getElementById("erro").style.display = "block";
+    document.getElementById("sucesso").style.display = "none";
+}
+
+function abrirHome(){
+
+    document.getElementById("telaLogin").style.display = "none";
+    document.getElementById("telaHome").style.display = "block";
+}
+
+function logout(){
+
+    localStorage.removeItem("logado");
+    localStorage.removeItem("usuarioAtual");
+    localStorage.removeItem("nomeUsuarioAtual");
+
+    document.getElementById("telaHome").style.display = "none";
+    document.getElementById("telaLogin").style.display = "block";
+
+    document.getElementById("email").value = "";
+    document.getElementById("senha").value = "";
+
+    mostrarLogin();
+}
+
+function mostrarSenha(){
+
+    const campoSenha =
+    document.getElementById("senha");
+
+    const icone =
+    document.getElementById("iconeOlho");
+
+    if(campoSenha.type === "password"){
+
+        campoSenha.type = "text";
+
+        icone.innerHTML = `
+            <path d="M13.359 11.238 15.31 13.19a.75.75 0 1 1-1.06 1.06L1.75 1.75A.75.75 0 0 1 2.81.69l2.02 2.02A8.53 8.53 0 0 1 8 2.5c5 0 8 5.5 8 5.5a13.13 13.13 0 0 1-2.641 3.238z"/>
+            <path d="M11.297 9.176A3.5 3.5 0 0 0 6.824 4.703l1.082 1.082A2 2 0 0 1 10.215 8.094l1.082 1.082z"/>
+            <path d="M8 13.5c-5 0-8-5.5-8-5.5a13.134 13.134 0 0 1 3.09-3.688l1.06 1.06A11.7 11.7 0 0 0 1.73 8c.593.891 2.776 4 6.27 4 .9 0 1.72-.206 2.446-.533l1.114 1.114A8.61 8.61 0 0 1 8 13.5z"/>
+        `;
+
+    }else{
+
+        campoSenha.type = "password";
+
+        icone.innerHTML = `
+            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM8 12.5A4.5 4.5 0 1 1 8 3.5a4.5 4.5 0 0 1 0 9z"/>
+            <path d="M8 5.5a2.5 2.5 0 1 0 0 5a2.5 2.5 0 0 0 0-5z"/>
+        `;
+
+    }
+}
+
+if(localStorage.getItem("logado") === "true"){
+    abrirHome();
+}
+
+</script>
 
 </body>
 </html>
